@@ -1,9 +1,12 @@
-name: Staging deployment
-
-on: 
-  pull_request:
-    types: [labeled]
-
+name: Team awesome's approval workflow
+on: pull_request_review
 jobs:
-  build:
+  labelWhenApproved:
     runs-on: ubuntu-latest
+    steps:
+    - name: Label when approved
+      uses: pullreminders/label-when-approved-action@master
+      env:
+        APPROVALS: "1"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ADD_LABEL: "approved"
